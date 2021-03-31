@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Chat</title>
+    <meta charset="UTF-8">
+    </head>
+
+<body>
+<h2>CHAT online</h2>
+
+<div th:each="message : ${messages}">
+
+    <samp th:text="${message.getAuthor()}">Author</samp>
+    <samp th:text="${message.getMessage()}">Message</samp>
+    <hr>
+
+</div>
+<hr>
+<div>
+    <form th:method="POST" th:action="@{}">
+
+    </form>
+</div>
+
+
+</body>
+</html>
