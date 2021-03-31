@@ -18,8 +18,14 @@
 </div>
 <hr>
 <div>
-    <form th:method="POST" th:action="@{}">
-
+    <form  th:method="POST" th:object="${newMessage}" th:action="@{/addMessage}">
+        <label for="a">Author:</label >
+        <input type="text"  th:field="*{author}" id="a">
+        <br/>
+        <label for="m">Message:</label >
+        <input type="text" th:field="*{message}" id="m">
+        <br/>
+        <input type="submit" value="Send">
     </form>
 </div>
 

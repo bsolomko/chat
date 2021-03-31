@@ -8,7 +8,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(String message, String author) {
+    public Message(String  author, String  message) {
         this.message = message;
         this.author = author;
     }
