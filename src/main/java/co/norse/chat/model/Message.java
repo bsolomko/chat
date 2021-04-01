@@ -5,6 +5,8 @@ public class Message {
     private String message;
     private String author;
 
+
+
     public Message() {
     }
 

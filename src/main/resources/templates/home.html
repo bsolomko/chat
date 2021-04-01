@@ -9,7 +9,7 @@
 <body>
 <h2>CHAT online</h2>
 
-<div th:each="message : ${messages}">
+<div th:each="message : ${messages}" id="messages">
 
     <samp th:text="${message.getAuthor()}">Author</samp>
     <samp th:text="${message.getMessage()}">Message</samp>
