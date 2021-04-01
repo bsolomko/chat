@@ -11,8 +11,9 @@
 
 <div th:each="message : ${messages}" id="messages">
 
-    <samp th:text="${message.getAuthor()}">Author</samp>
+    <b th:text="${message.getAuthor()}">Author</b><b>:</b>
     <samp th:text="${message.getMessage()}">Message</samp>
+    <samp th:text="${message.getTime()}">Time</samp>
     <hr>
 
 </div>
@@ -28,7 +29,12 @@
         <input type="submit" value="Send">
     </form>
 </div>
-
+<hr>
+<div>
+    <form th:method="POST" th:action="@{/deleteAllMessage}">
+        <input type="submit" value="Clear">
+    </form>
+</div>
 
 </body>
 </html>
