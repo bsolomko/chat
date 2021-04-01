@@ -11,6 +11,17 @@ public class User {
     private String imageUrl;
     private String type;
 
+    public String getFullName(){
+        if (firstName == null && lastName == null)
+            return null;
+        else if (firstName == null)
+            return lastName;
+        else if (lastName == null)
+            return firstName;
+        else
+            return firstName + " " + lastName;
+    }
+
     public User() {}
 
     public User(int id, String username, String email, String firstName, String lastName, String imageUser, String type) {
