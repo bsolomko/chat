@@ -25,10 +25,11 @@ public class UserRepository {
         return null;
     }
 
-    public User findUserByName(String name){
+    public User findByUserName(String name){
         for (User u:userStore) {
-            if (u.getFirstName() == name)
-                return u;
+            if (u.getUsername() != null) {
+                if (u.getUsername().equals(name))
+                return u; }
         }
         return null;
     }
