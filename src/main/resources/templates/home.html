@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Chat</title>
+    <meta charset="UTF-8">
+    </head>
+
+<body>
+<h2>CHAT online</h2>
+
+<div th:each="message : ${messages}" id="messages">
+
+    <b th:text="${message.getAuthor()}">Author</b><b>:</b>
+    <samp th:text="${message.getMessage()}">Message</samp>
+    <samp th:text="${message.getTime()}">Time</samp>
+    <hr>
+
+</div>
+<hr>
+<div>
+    <form  th:method="POST" th:object="${newMessage}" th:action="@{/addMessage}">
+        <label for="a">Author:</label >
+        <input type="text"  th:field="*{author}" id="a">
+        <br/>
+        <label for="m">Message:</label >
+        <input type="text" th:field="*{message}" id="m">
+        <br/>
+        <input type="submit" value="Send">
+    </form>
+</div>
+<hr>
+<div>
+    <form th:method="POST" th:action="@{/deleteAllMessage}">
+        <input type="submit" value="Clear">
+    </form>
+</div>
+
+</body>
+</html>
