@@ -1,15 +1,17 @@
 package co.norse.chat;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class User {
-    private int id;
+    private long id;
     private String username;
     private String email;
     private String firstName;
     private String lastName;
     private String imageUrl;
     private String type;
+    private static AtomicLong atomicLong = new AtomicLong();
 
     public String getFullName(){
         if (firstName == null && lastName == null)
@@ -22,10 +24,12 @@ public class User {
             return firstName + " " + lastName;
     }
 
-    public User() {}
+    public User() {
+        this.id = atomicLong.incrementAndGet();
+    }
 
-    public User(int id, String username, String email, String firstName, String lastName, String imageUser, String type) {
-        this.id = id;
+    public User(String username, String email, String firstName, String lastName, String imageUser, String type) {
+        this.id = atomicLong.incrementAndGet();
         this.username = username;
         this.email = email;
         this.firstName = firstName;
@@ -60,11 +64,11 @@ public class User {
                 '}';
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
