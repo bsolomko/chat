@@ -1,5 +1,6 @@
 package co.norse.chat.controller;
 
+import co.norse.chat.User;
 import co.norse.chat.model.Message;
 import co.norse.chat.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,8 @@ public class MessageController {
             return "redirect:/chat";
 }
 
+@GetMapping("/registration")
+    public String registration(@ModelAttribute("newUser")User user){
+    return "registration";
+}
 }
