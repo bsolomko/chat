@@ -11,19 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class MessageTest {
 
     @Test
-    void checkMessageAfterCreate(){
+    void checkMessageAfterCreate() {
 
         Message message = new Message();
-        LocalDateTime createMessageDataTime;
         message.setId(1);
         message.setAuthor("Author");
         message.setMessage("test message");
-        message.setCreateDataTime(createMessageDataTime = LocalDateTime.now());
 
-        assertEquals(1,message.getId());
-        assertEquals("Author",message.getAuthor());
-        assertEquals("test message",message.getMessage());
-        assertEquals(createMessageDataTime,message.getCreateDataTime());
+
+        assertEquals(1, message.getId());
+        assertEquals("Author", message.getAuthor());
+        assertEquals("test message", message.getMessage());
+
     }
 
 }
