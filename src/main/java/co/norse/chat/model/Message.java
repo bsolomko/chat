@@ -20,6 +20,10 @@ public class Message {
     }
 
     public Message(String author, String message) {
+        this.createDataTime = LocalDateTime.now();
+        this.id = atomicLong.incrementAndGet();
+        this.author = author;
+        this.message = message;
 
     }
 

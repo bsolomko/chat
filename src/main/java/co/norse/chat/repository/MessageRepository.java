@@ -2,11 +2,12 @@ package co.norse.chat.repository;
 
 import co.norse.chat.model.Message;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Service
 public class MessageRepository {
 
     private List<Message> messagesStore;
@@ -36,4 +37,7 @@ public class MessageRepository {
     }
 
 
+    public void setMessagesStore(List<Message> messagesStore) {
+        this.messagesStore = messagesStore;
+    }
 }
