@@ -1,10 +1,12 @@
 package co.norse.chat.repository;
 
 import co.norse.chat.User;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class UserRepository {
 
     List<User> userStore;
