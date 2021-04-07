@@ -1,14 +1,11 @@
 package co.norse.chat.service;
 
 import co.norse.chat.model.Message;
-import co.norse.chat.repository.MessageRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -29,7 +26,7 @@ class MessageServiceTest {
         Message message = new Message("Author", "message test");
         messageService.addMessage(message);
         long id = message.getId();
-        assertEquals(message, messageService.getMessageByID(id));
+        assertEquals(message, messageService.getMessageById(id));
 
     }
 
@@ -42,7 +39,7 @@ class MessageServiceTest {
         messageService.addMessage(m1);
         messageService.addMessage(m2);
         messageService.addMessage(m3);
-        assertEquals(2, messageService.getAllMessageByAuthor("Author1").size());
+        assertEquals(2, messageService.getAllMessagesByAuthor("Author1").size());
 
 
     }
