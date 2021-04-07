@@ -1,6 +1,7 @@
 package co.norse.chat.repository;
 
 import co.norse.chat.User;
+import co.norse.chat.model.Message;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class UserRepository {
         userStore.add(user);
     }
 
-    public User findUserById(int id){
+    public User findUserById(long id){
         for (User u:userStore) {
             if (u.getId() == id)
                 return u;
@@ -40,4 +41,25 @@ public class UserRepository {
         return userStore;
     }
 
+    public User findByEmail(String email){
+        for (User u:userStore) {
+            if (u.getEmail() != null) {
+                if (u.getEmail().equals(email))
+                    return u; }
+        }
+        return null;
+        }
+
+    public boolean removeUserById(long id){
+        for (User u: userStore) {
+            if(u.getId() == id){
+                userStore.remove(u);
+                return true;
+            }
+        }
+        return false;
+    }
+    public void deleteAllUsers(){
+        userStore.clear();
+    }
 }
