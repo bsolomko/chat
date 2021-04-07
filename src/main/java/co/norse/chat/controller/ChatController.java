@@ -13,8 +13,12 @@ public class ChatController {
     @Autowired
     MessageService messageService;
 
-    @PostMapping("/user/registration")
-    public String registration(@RequestBody User user){
+    @GetMapping("/user/registration")
+    public String registration(@ModelAttribute("newUser") User user){
+        return "redirect:home";
+    }
+    @PostMapping("/user/add")
+    public String addNewUser(@ModelAttribute("newUser") User user){
         return "redirect:home";
     }
 
