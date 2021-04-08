@@ -13,30 +13,32 @@ public class UserService {
     UserRepository repository;
 
 
-
-    public void addUser(User user){
+    public void addUser(User user) {
         repository.addUser(user);
     }
 
-    public User findUserByName(String name){
+    public User findUserByName(String name) {
         return repository.findByUserName(name);
     }
 
-    public User findUserById(int id){
+    public User findUserById(long id) {
         return repository.findUserById(id);
     }
 
-    public User findUserByEmail(String email){
+    public User findUserByEmail(String email) {
         return repository.findByEmail(email);
     }
 
-    public List<User> findAllUsers(){
+    public List<User> findAllUsers() {
         return repository.findAllUsers();
     }
 
-    public void removeUser(int id){
-         repository.removeUserById(id);
+    public void removeUser(long id) {
+        repository.removeUserById(id);
+    }
 
+    public void deleteAllUsers() {
+        repository.deleteAllUsers();
     }
 
 
