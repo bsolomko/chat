@@ -13,7 +13,7 @@ public class User {
     private String type;
     private static AtomicLong atomicLong = new AtomicLong();
 
-    public String getFullName(){
+    public String getFullName() {
         if (firstName == null && lastName == null)
             return null;
         else if (firstName == null)
