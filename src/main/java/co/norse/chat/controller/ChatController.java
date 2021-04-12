@@ -43,5 +43,4 @@ public class ChatController {
     List<Message> messages = chat.getMessages();
     return messages;
     }
-
 }
