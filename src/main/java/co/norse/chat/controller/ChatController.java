@@ -1,45 +1,49 @@
 package co.norse.chat.controller;
 
+import co.norse.chat.model.Chat;
 import co.norse.chat.model.Message;
 import co.norse.chat.model.User;
+import co.norse.chat.service.ChatService;
 import co.norse.chat.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/api")
 public class ChatController {
     @Autowired
-    MessageService messageService;
+    private MessageService messageService;
+    @Autowired
+    private ChatService chatService;
 
-    @GetMapping("/user/registration")
-    public String registration(@ModelAttribute("newUser") User user){
-        return "redirect:home";
-    }
-    @PostMapping("/user/add")
-    public String addNewUser(@ModelAttribute("newUser") User user){
-        return "redirect:home";
-    }
-
-    @GetMapping("/user/{id}")
-    public String home(@PathVariable("id") Long id ){
-     return "home";
+    @PostMapping("/user/{id}/chat/add/{recipientId}")
+    public Chat createChat(@PathVariable Long id, @PathVariable Long recipientId) {
+        Chat chat = new Chat(id, recipientId);
+        chatService.addChat(chat);
+        return chat;
     }
 
-    @PostMapping("/user/{id}/message/to/{recipientID}")
-    public String sendMessage(@RequestBody Message message ,@PathVariable("id") Long id,@PathVariable("recipientID") Long recipientID){
-        return "redirect:home";
+    @PostMapping("/user/{id}/chat/{chatId}/message/send/{recipientId}")
+    public Message sendMessage(@PathVariable Long id, @PathVariable Long chatId, @PathVariable Long recipientId, @RequestBody Message message) throws Exception {
+
+        if(chatService.getChatById(chatId) == null) throw new Exception("Error chat ID");
+        Message _message = new Message();
+        _message.setMessage(message.getMessage());
+        _message.setSenderId(id);
+        _message.setRecipientID(recipientId);
+        messageService.addMessage(_message);
+        chatService.addMessageInChat(chatId, _message);
+        return _message;
+    }
+    @GetMapping("/user/{id}/chat/{chatId}/message")
+    public List<Message> getChat(@PathVariable Long id, @PathVariable Long chatId){
+    Chat chat =  chatService.getChatById(chatId);
+    List<Message> messages = chat.getMessages();
+    return messages;
     }
 
-    @PostMapping("/user/{id}/message/delete/{recipientID}")
-    public  String deleteAllMessagesUserInChat(@PathVariable("id") Long id,@PathVariable Long recipientID){
-        return "redirect:home";
-    }
-    @GetMapping("/user/{id}/search/{userName}")
-    public String searchByUserName(@PathVariable("userName") String userName){
-        return "redirect:home";
-    }
 
 
 }
