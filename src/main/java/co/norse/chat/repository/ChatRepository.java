@@ -20,19 +20,20 @@ public class ChatRepository {
         chatStore.add(chat);
     }
 
-    public void deleteChatByID(Long id) {
+    public void deleteChatByID(long id) {
         this.chatStore = chatStore.stream().filter(chat -> chat.getId() != id).collect(Collectors.toList());
     }
 
-    public void deleteAllChat(){
+    public void deleteAllChats() {
         this.chatStore.clear();
     }
 
-    public List<Chat> getAllChat(){
+    public List<Chat> getAllChats() {
         return chatStore;
     }
 
-    public Chat getChatByID(long id){
-        return chatStore.stream().filter(chat -> chat.getId() == id).findAny().orElse(null);
+
+    public Chat getChatById(long chatID) {
+        return chatStore.stream().filter(chat -> chat.getId() == chatID).findAny().orElse(null);
     }
 }

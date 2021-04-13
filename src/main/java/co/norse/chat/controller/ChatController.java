@@ -8,6 +8,7 @@ import co.norse.chat.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -25,22 +26,39 @@ public class ChatController {
         return chat;
     }
 
-    @PostMapping("/user/{id}/chat/{chatId}/message/send/{recipientId}")
-    public Message sendMessage(@PathVariable Long id, @PathVariable Long chatId, @PathVariable Long recipientId, @RequestBody Message message) throws Exception {
+    @PostMapping("/user/{id}/message/send")
+    public Message sendMessage(@RequestBody Message message) throws Exception {
 
-        if(chatService.getChatById(chatId) == null) throw new Exception("Error chat ID");
-        Message _message = new Message();
-        _message.setMessage(message.getMessage());
-        _message.setSenderId(id);
-        _message.setRecipientID(recipientId);
-        messageService.addMessage(_message);
-        chatService.addMessageInChat(chatId, _message);
-        return _message;
+        Chat chat = chatService.getAllChat().stream().filter(chat1 -> message.getSenderId() == chat1.getSenderId() && message.getRecipientId() == chat1.getRecipientId()
+                || message.getSenderId() == chat1.getRecipientId() && message.getRecipientId() == chat1.getSenderId()).findAny().orElse(null);
+        if (chatService.getChatById(chat.getId()) == null) throw new Exception("Error chat ID");
+        Message messageModel = new Message();
+        messageModel.setMessage(message.getMessage());
+        messageModel.setSenderId(chat.getSenderId());
+        messageModel.setRecipientID(chat.getRecipientId());
+        messageService.addMessage(messageModel);
+        chatService.addMessageInChat(chat.getId(), messageModel);
+        return messageModel;
     }
-    @GetMapping("/user/{id}/chat/{chatId}/message")
-    public List<Message> getChat(@PathVariable Long id, @PathVariable Long chatId){
-    Chat chat =  chatService.getChatById(chatId);
-    List<Message> messages = chat.getMessages();
-    return messages;
+
+    @GetMapping("/user/{id}/chat/message")
+    public List<Message> getChat(@RequestBody Chat chat) {
+        Chat chatModel = chatService.getChatById(chat.getId());
+        return chatModel.getMessages();
+    }
+
+    @DeleteMapping("/user/{id}/chat/delete")
+    public void deleteChat(@RequestBody Chat chat) throws Exception {
+        Chat chatModel = chatService.getChatById(chat.getId());
+        if (chatModel != null) chatService.deleteChatById(chatModel.getId());
+        else throw new Exception("Error chat ID");
+    }
+
+    @DeleteMapping("/user/{id}/chat/message/delete")
+    public void deleteAllMessage(@RequestBody Chat chat) throws Exception {
+        Chat chatModel = chatService.getChatById(chat.getId());
+        if (chatModel != null) {
+            chatModel.deleteAllMessages();
+        } else throw new Exception("Error chat ID");
     }
 }
