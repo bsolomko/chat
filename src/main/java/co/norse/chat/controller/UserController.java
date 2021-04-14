@@ -15,17 +15,21 @@ public class UserController {
     UserService userService;
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        final List<User> users = userService.findAllUsers();
-        return users != null && !users.isEmpty()
-                ? new ResponseEntity<>(users, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public List<User> getAllUsers() {
+        return userService.findAllUsers();
     }
 
-    @PostMapping(value = "/users")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
-        userService.addUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping("/users")
+    public User addUser(@RequestBody User user) {
+        User userModel= new User();
+        userModel.setFirstName(user.getFirstName());
+        userModel.setLastName(user.getLastName());
+        userModel.setEmail(user.getEmail());
+        userModel.setUsername(user.getUsername());
+        userModel.setImageUrl(user.getImageUrl());
+        userModel.setType(user.getType());
+        userService.addUser(userModel);
+        return userModel;
     }
 
     @GetMapping(value = "/users/{id}")
@@ -53,9 +57,9 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public ResponseEntity<?> removeUser(@PathVariable(name = "id") long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void removeUser(@PathVariable(name = "id") long id) {
         userService.removeUser(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
