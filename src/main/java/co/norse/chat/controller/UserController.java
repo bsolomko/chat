@@ -1,6 +1,6 @@
 package co.norse.chat.controller;
 
-import co.norse.chat.User;
+import co.norse.chat.model.User;
 import co.norse.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,25 +11,13 @@ import java.util.List;
 
 @RestController
 public class UserController {
+
     @Autowired
     UserService userService;
 
     @GetMapping(value = "/users")
     public List<User> getAllUsers() {
         return userService.findAllUsers();
-    }
-
-    @PostMapping("/users")
-    public User addUser(@RequestBody User user) {
-        User userModel= new User();
-        userModel.setFirstName(user.getFirstName());
-        userModel.setLastName(user.getLastName());
-        userModel.setEmail(user.getEmail());
-        userModel.setUsername(user.getUsername());
-        userModel.setImageUrl(user.getImageUrl());
-        userModel.setType(user.getType());
-        userService.addUser(userModel);
-        return userModel;
     }
 
     @GetMapping(value = "/users/{id}")
@@ -40,6 +28,7 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/users/byUsername")
     public ResponseEntity<User> getUserByName(@RequestParam(name = "username") String username) {
         final User user = userService.findUserByName(username);

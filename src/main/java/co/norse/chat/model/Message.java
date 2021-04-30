@@ -1,7 +1,6 @@
 package co.norse.chat.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -9,6 +8,8 @@ public class Message {
 
     private static AtomicLong atomicLong = new AtomicLong();
     private long id;
+    private long senderId;
+    private long recipientId;
     private String message;
     private String author;
     private LocalDateTime createDataTime;
@@ -19,12 +20,12 @@ public class Message {
         this.id = atomicLong.incrementAndGet();
     }
 
-    public Message(String author, String message) {
+    public Message(long senderId, String message, long recipientId) {
         this.createDataTime = LocalDateTime.now();
         this.id = atomicLong.incrementAndGet();
-        this.author = author;
+        this.senderId = senderId;
+        this.recipientId = recipientId;
         this.message = message;
-
     }
 
     public LocalDateTime getCreateDataTime() {
@@ -58,7 +59,8 @@ public class Message {
     public void setAuthor(String author) {
         this.author = author;
     }
-    public String getTime(){
+
+    public String getTime() {
         return createDataTime.toLocalTime().withNano(0).toString();
     }
 
@@ -73,5 +75,21 @@ public class Message {
     @Override
     public int hashCode() {
         return Objects.hash(id, message, author, createDataTime);
+    }
+
+    public void setSenderId(long id) {
+        this.senderId = id;
+    }
+
+    public void setRecipientID(long recipientId) {
+        this.recipientId = recipientId;
+    }
+
+    public long getSenderId() {
+        return senderId;
+    }
+
+    public long getRecipientId() {
+        return recipientId;
     }
 }

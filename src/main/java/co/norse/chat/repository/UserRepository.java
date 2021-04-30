@@ -1,7 +1,6 @@
 package co.norse.chat.repository;
 
-import co.norse.chat.User;
-import co.norse.chat.model.Message;
+import co.norse.chat.model.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
