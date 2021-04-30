@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,17 +49,17 @@ public class MessageService {
 
     public void deleteAllMessagesByAuthor(String authorName) {
 
-       repository.deleteAllMessageByAuthor(authorName);
+        repository.deleteAllMessageByAuthor(authorName);
     }
 
-    public List<Message> getAllMessagesAfterDateTime(LocalDateTime dateTime, String author) {
+    public List<Message> getAllMessagesAfterDateTime(LocalDateTime dateTime, long senderId) {
 
-        return repository.getAllMessages().stream().filter(message -> message.getCreateDataTime().isAfter(dateTime) && message.getAuthor().equals(author)).collect(Collectors.toList());
+        return repository.getAllMessages().stream().filter(message -> message.getCreateDataTime().isAfter(dateTime) && message.getSenderId() == senderId).collect(Collectors.toList());
     }
 
-    public List<Message> getAllMessagesBeforeDataTime(LocalDateTime dateTime, String author) {
+    public List<Message> getAllMessagesBeforeDataTime(LocalDateTime dateTime, long senderId) {
 
-        return repository.getAllMessages().stream().filter(message -> message.getCreateDataTime().isBefore(dateTime) && message.getAuthor().equals(author)).collect(Collectors.toList());
+        return repository.getAllMessages().stream().filter(message -> message.getCreateDataTime().isBefore(dateTime) && message.getSenderId() == senderId).collect(Collectors.toList());
     }
 
     public List<Message> getAllMessages() {
