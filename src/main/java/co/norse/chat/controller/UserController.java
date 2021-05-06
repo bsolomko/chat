@@ -5,6 +5,7 @@ import co.norse.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,11 @@ public class UserController {
     @GetMapping(value = "/users")
     public List<User> getAllUsers() {
         return userService.findAllUsers();
+    }
+
+    @GetMapping("/users/current")
+    public Object getCurrentUser(){
+        return  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @GetMapping(value = "/users/{id}")
