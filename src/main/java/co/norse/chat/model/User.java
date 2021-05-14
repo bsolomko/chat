@@ -36,6 +36,15 @@ public class User implements UserDetails {
         this.type = type;
     }
 
+    public String getFullName() {
+        if (firstName == null)
+            return lastName;
+        else if (lastName == null)
+            return firstName;
+        else
+            return firstName + " " + lastName;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
