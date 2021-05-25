@@ -1,17 +1,14 @@
 package co.norse.chat.controller;
 
-import co.norse.chat.User;
 import co.norse.chat.model.Message;
+import co.norse.chat.model.User;
 import co.norse.chat.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MessageController {
@@ -42,7 +39,7 @@ public class MessageController {
 }
 
 @GetMapping("/registration")
-    public String registration(@ModelAttribute("newUser")User user){
+    public String registration(@ModelAttribute("newUser") User user){
     return "registration";
 }
 }
