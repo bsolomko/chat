@@ -49,15 +49,16 @@ public class ChatController {
     }
 
     @GetMapping("/user/{id}/chat/{recipientId}/message")
-    public List<Message> getMessagesFromChat(@PathVariable Long id,@PathVariable Long recipientId) throws Exception {
-        Chat chatModel = chatService.getChatByRecipientAndSenderId(id,recipientId);
+    public List<Message> getMessagesFromChat(@PathVariable Long id, @PathVariable Long recipientId) throws Exception {
+        Chat chatModel = chatService.getChatByRecipientAndSenderId(id, recipientId);
         return chatModel.getMessages();
     }
+
     @GetMapping("/user/{id}/chat/recipient/{recipientId}")
-    public Chat getChat(@PathVariable Long id,@PathVariable Long recipientId) throws Exception {
-        Chat chatModel = chatService.getChatByRecipientAndSenderId(id,recipientId);
+    public Chat getChat(@PathVariable Long id, @PathVariable Long recipientId) throws Exception {
+        Chat chatModel = chatService.getChatByRecipientAndSenderId(id, recipientId);
         System.out.println(chatModel);
-        if(chatModel == null) return null;
+        if (chatModel == null) return null;
         else return chatModel;
     }
 

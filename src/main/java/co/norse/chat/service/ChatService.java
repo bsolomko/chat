@@ -22,10 +22,11 @@ public class ChatService {
         return chatRepository.getAllChats().stream().filter(chat -> chat.getId() == chatId).findAny().orElse(null);
     }
 
-    public Chat getChatByRecipientAndSenderId(long recipient,long sender) throws Exception {
-        return  chatRepository.getAllChats().stream().filter(chat -> chat.getRecipientId() == recipient && chat.getSenderId() == sender
-                || chat.getRecipientId() == sender && chat.getSenderId() == recipient).findAny().orElseThrow(()-> new Exception("Don't found chat"));
+    public Chat getChatByRecipientAndSenderId(long recipient, long sender) throws Exception {
+        return chatRepository.getAllChats().stream().filter(chat -> chat.getRecipientId() == recipient && chat.getSenderId() == sender
+                || chat.getRecipientId() == sender && chat.getSenderId() == recipient).findAny().orElseThrow(() -> new Exception("Don't found chat"));
     }
+
     public void addChat(Chat chat) {
         chatRepository.addChat(chat);
     }

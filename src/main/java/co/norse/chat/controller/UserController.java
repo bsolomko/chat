@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 
@@ -22,8 +23,8 @@ public class UserController {
     }
 
     @GetMapping("/users/current")
-    public Object getCurrentUser(){
-        return  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Object getCurrentUser() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @GetMapping(value = "/users/{id}")
