@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class ChatController {
@@ -47,10 +48,18 @@ public class ChatController {
         return messageModel;
     }
 
-    @GetMapping("/user/{id}/chat/message")
-    public List<Message> getChat(@RequestBody Chat chat) {
-        Chat chatModel = chatService.getChatById(chat.getId());
+    @GetMapping("/user/{id}/chat/{recipientId}/message")
+    public List<Message> getMessagesFromChat(@PathVariable Long id, @PathVariable Long recipientId) throws Exception {
+        Chat chatModel = chatService.getChatByRecipientAndSenderId(id, recipientId);
         return chatModel.getMessages();
+    }
+
+    @GetMapping("/user/{id}/chat/recipient/{recipientId}")
+    public Chat getChat(@PathVariable Long id, @PathVariable Long recipientId) throws Exception {
+        Chat chatModel = chatService.getChatByRecipientAndSenderId(id, recipientId);
+        System.out.println(chatModel);
+        if (chatModel == null) return null;
+        else return chatModel;
     }
 
     @DeleteMapping("/user/{id}/chat/delete")
