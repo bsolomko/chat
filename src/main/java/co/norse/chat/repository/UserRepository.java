@@ -1,67 +1,17 @@
 package co.norse.chat.repository;
 
 import co.norse.chat.model.User;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-@Component
-public class UserRepository {
+    User findByFirstName(String name);
+    User findByUsername(String username);
 
-    List<User> userStore;
+    User findByEmail(String email);
 
-    public UserRepository() {
-        this.userStore = new ArrayList<>();
-    }
+    void deleteById(long id);
 
-    public void addUser(User user) {
-        userStore.add(user);
-    }
-
-    public User findUserById(long id) {
-        for (User u : userStore) {
-            if (u.getId() == id)
-                return u;
-        }
-        return null;
-    }
-
-    public User findByUserName(String name) {
-        for (User u : userStore) {
-            if (u.getUsername() != null) {
-                if (u.getUsername().equals(name))
-                    return u;
-            }
-        }
-        return null;
-    }
-
-    public List<User> findAllUsers() {
-        return userStore;
-    }
-
-    public User findByEmail(String email) {
-        for (User u : userStore) {
-            if (u.getEmail() != null) {
-                if (u.getEmail().equals(email))
-                    return u;
-            }
-        }
-        return null;
-    }
-
-    public boolean removeUserById(long id) {
-        for (User u : userStore) {
-            if (u.getId() == id) {
-                userStore.remove(u);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void deleteAllUsers() {
-        userStore.clear();
-    }
 }

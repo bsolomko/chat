@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -28,23 +29,23 @@ public class UserService {
         User user4 = new User("sfa", "pass", "sfscm@gmail.com", "Sanchez", "Cold", "31221", "user");
         user4.setPassword(passwordEncoder.encode(user4.getPassword()));
 
-        repository.addUser(user1);
-        repository.addUser(user2);
-        repository.addUser(user3);
-        repository.addUser(user4);
+        repository.save(user1);
+        repository.save(user2);
+        repository.save(user3);
+        repository.save(user4);
     }
 
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.addUser(user);
+        repository.save(user);
     }
 
     public User findUserByName(String name) {
-        return repository.findByUserName(name);
+        return repository.findByFirstName(name);
     }
 
-    public User findUserById(long id) {
-        return repository.findUserById(id);
+    public Optional<User> findUserById(long id) {
+        return repository.findById(id);
     }
 
     public User findUserByEmail(String email) {
@@ -52,16 +53,15 @@ public class UserService {
     }
 
     public List<User> findAllUsers() {
-        return repository.findAllUsers();
+        return repository.findAll();
     }
 
     public void removeUser(long id) {
-        repository.removeUserById(id);
+        repository.deleteById(id);
     }
 
     public void deleteAllUsers() {
-        repository.deleteAllUsers();
+        repository.deleteAll();
     }
-
 
 }

@@ -18,7 +18,7 @@ public class MessageController {
 
     @GetMapping("/chat")
     public String getHomePage(Model model, @ModelAttribute("newMessage") Message message) {
-        model.addAttribute("messages", messageRepository.getAllMessages());
+        model.addAttribute("messages", messageRepository.findAll());
         return "home";
     }
 
@@ -29,13 +29,13 @@ public class MessageController {
         _message.setAuthor(message.getAuthor());
         _message.setCreateDataTime(message.getCreateDataTime());
         _message.setId(message.getId());
-        messageRepository.addMessage(message);
+        messageRepository.save(message);
         return "redirect:/chat";
     }
 
     @PostMapping("/deleteAllMessage")
     public String deleteChat() {
-        messageRepository.deleteAllMessages();
+        messageRepository.deleteAll();
         return "redirect:/chat";
     }
 

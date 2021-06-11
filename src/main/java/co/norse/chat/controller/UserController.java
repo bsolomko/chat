@@ -27,13 +27,13 @@ public class UserController {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    @GetMapping(value = "/users/{id}")
-    public ResponseEntity<User> getUserByID(@PathVariable(name = "id") long id) {
-        final User user = userService.findUserById(id);
-        return user != null
-                ? new ResponseEntity<>(user, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//    @GetMapping(value = "/users/{id}")
+//    public ResponseEntity<User> getUserByID(@PathVariable(name = "id") long id) {
+//        final User user = userService.findUserById(id);
+//        return user != null
+//                ? new ResponseEntity<>(user, HttpStatus.OK)
+//                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
     @CrossOrigin
     @GetMapping(value = "/users/byUsername")

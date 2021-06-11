@@ -38,14 +38,7 @@ class ChatServiceTest {
 
     }
 
-    @Test
-    void addMessageInChat() {
-        Chat chat = new Chat(1L,2L);
-        chatService.addChat(chat);
-        chatService.addMessageInChat(chat.getId(),new Message(chat.getSenderId(),"Hello Alex",chat.getRecipientId()));
-        assertEquals(1,chatService.getAllMessageInChatCount(chat.getId()));
 
-    }
 
     @Test
     void deleteChatById() {

@@ -5,28 +5,44 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Data
+@Entity
+@Table(name = "users")
 public class User implements UserDetails {
-    private final long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "firstName")
     private String firstName;
+
+    @Column(name = "lastName")
     private String lastName;
+
+    @Column(name = "imageUrl")
     private String imageUrl;
+
+    @Column(name = "type")
     private String type;
-    private static AtomicLong atomicLong = new AtomicLong();
 
     public User() {
-        this.id = atomicLong.incrementAndGet();
     }
 
-    public User(String username, String password, String email, String firstName, String lastName, String imageUser, String type) {
-        this.id = atomicLong.incrementAndGet();
+    public User(String username, String password, String email, String firstName,
+                String lastName, String imageUser, String type) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -34,15 +50,6 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.imageUrl = imageUser;
         this.type = type;
-    }
-
-    public String getFullName() {
-        if (firstName == null)
-            return lastName;
-        else if (lastName == null)
-            return firstName;
-        else
-            return firstName + " " + lastName;
     }
 
     @Override
@@ -79,4 +86,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
